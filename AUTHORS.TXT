@@ -1,0 +1,8 @@
+SegmentDisplayOCR AviSynth filter:
+	Lcferrum <lcferrum@yandex.com>
+	
+Based on:
+	Seven Segment Optical Character Recognition (ssocr) by 
+	Erik Auerswald <auerswal@unix-ag.uni-kl.de> and 
+	Cristiano Fontana <fontanacl@ornl.gov>
+	<http://www.unix-ag.uni-kl.de/~auerswal/ssocr/>

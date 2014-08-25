@@ -1,0 +1,51 @@
+SegmentDisplayOCR AviSynth Filter compiling instructions
+
+1. License
+----------
+Copyright (c) 2014 Lcferrum
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+2. General
+----------
+SegmentDisplayOCR is written using C++ (ISO/IEC 14882:1998) and is intended
+to be used on Windows only. General compilation steps:
+
+    1) Download sources from https://github.com/lcferrum/segment-display-ocr
+
+    2) Compile it using Microsoft Visual Studio.
+
+    3) After compiling, see the README.TXT file for instructions on using 
+       SegmentDisplayOCR.
+
+3. Specific compiling instructions
+----------------------------------
+The easiest way to compile SegmentDisplayOCR is by using included solution file
+for Microsoft Visual Studio 2008. Open solution file, select Release
+configuration and build solution. Compiled DLL can be found in Release directory.
+
+Unfortunately, AviSynth C++ API (avisynth.h) uses Visual Studio specific code
+so you can use compilers only from Visual Studio family. AviSynth C++ API 
+included with this sources is from official 2.6.0 alpha release. Official
+AviSynth release only supports 32-bit so if you want to compile 64-bit version
+of SegmentDisplayOCR you'll need avisynth.h from unofficial 64-bit release you
+intend to use. Keep in mind that SegmentDisplayOCR can't be compiled against
+AviSynth C API and versions of AviSynth C++ API earlier than 5 (that is from
+official 2.6.0 relase).
+
+If you want to make Visual Studio project from scratch, consider the following:
+
+    - Use empty Win32 console project with application type set to DLL as
+      basis.
+    - Add all the source files (.cpp, .h, .rc) to the project.
+    - Change character set to multi-byte in project general settings.
+    - Output DLL must be named SegmentDisplayOCR.dll.    
+    - If using Visual Studio 2010 and higher, set platform toolset to v90.
+      Otherwise, with higher value, you won't be able to use SegmentDisplayOCR
+      on Windows 2000.
