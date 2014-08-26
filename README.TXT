@@ -97,8 +97,7 @@ log_file [optional, default: empty string]
     it will be created. Relative path is relative to AVS script location.
 
 log_append [optional, default: true]
-    If true - log file will be appended. If false - log file file will be
-    truncated.
+    If true - log file will be appended. If false - log file will be truncated.
 
 interval [optional, default: 1]
     Recognition interval in seconds. It means that every N seconds a frame will

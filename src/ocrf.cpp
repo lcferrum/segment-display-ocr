@@ -29,7 +29,7 @@ const AVS_Linkage *AVS_linkage=NULL;
 //Filters are created in order of appearance in AVS file
 OCRFilter::OCRFilter(PClip child, const char* log_file, bool log_append, int interval, const char* time_format, bool debug, bool localized_output, bool inverted, const char* threshold, IScriptEnvironment *env):
 	GenericVideoFilter(child),
-	fduration((unsigned int)((double)vi.fps_denominator/vi.fps_numerator*1000)), timer(interval*1000), last_frame(-1), time_format(SEC), debug(debug), log_file(), csv_sep(), dec_sep(), neg_sign(), ssocr()
+	fduration(((double)vi.fps_denominator/vi.fps_numerator*1000)), timer(interval*1000), last_frame(-1), time_format(SEC), debug(debug), log_file(), csv_sep(), dec_sep(), neg_sign(), ssocr()
 {
 	if (interval<0)
 		env->ThrowError("SegmentDisplayOCR: interval can't be negative number!");
@@ -95,13 +95,22 @@ OCRFilter::~OCRFilter()
 		log_file.close();
 }
 
+//Rounding algorithm from Java 7
+int OCRFilter::Round(double num)
+{
+	if (num!=0.49999999999999994)
+		return (int)floor(num+0.5);
+	else
+		return 0;
+}
+
 //GetFrame is called only when client or parent filter requests frame
 PVideoFrame __stdcall OCRFilter::GetFrame(int n, IScriptEnvironment *env)
 {
 	PVideoFrame src=child->GetFrame(n, env);
 	
 	//For the sake of optimization, following variables are computed only ones per iteration
-	unsigned int cur_mseconds=fduration*n;
+	unsigned int cur_mseconds=Round(fduration*n);
 	bool newer=IsNewer(n);
 	bool alarm=CheckTimer(cur_mseconds);
 	std::string timestamp=(debug||(time_format==TMS&&alarm))?GetTimestamp(cur_mseconds):"";
@@ -165,7 +174,7 @@ bool OCRFilter::CheckTimer(unsigned int cur_mseconds)
 		return true;
 
 	unsigned int last_alarm=cur_mseconds-cur_mseconds%timer;
-	if (cur_mseconds>=last_alarm&&cur_mseconds<(last_alarm+fduration))
+	if (cur_mseconds>=last_alarm&&cur_mseconds<(last_alarm+Round(fduration)))
 		return true;
 	else
 		return false;

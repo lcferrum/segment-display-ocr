@@ -21,7 +21,7 @@
 class OCRFilter: public GenericVideoFilter {
 private: 
 	enum TFEnum {TMS, RTM, SEC, MSEC, FRAME};
-	unsigned int fduration;		//Frame duration in mseconds
+	double fduration;			//Frame duration in mseconds
 	unsigned int timer;			//Timer in mseconds
 	int last_frame;				//Last processed frame
 	TFEnum time_format;
@@ -34,6 +34,7 @@ private:
 	char time_fmt[80];
 	Ssocr *ssocr;
 
+	int Round(double num);
 	std::string GetTimestamp(unsigned int cur_mseconds);
 	bool CheckTimer(unsigned int cur_mseconds);
 	bool IsNewer(int cur_frame);
