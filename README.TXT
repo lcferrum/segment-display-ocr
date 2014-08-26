@@ -70,8 +70,8 @@ SegmentDisplayOCR will output original unchanged video.
 
 SegmentDisplayOCR will try to recognize every N-th frame starting from the 
 first one. N is determined by interval variable (in seconds). For example for
-PAL video (30 FPS) one second interval means that recognition will occur every
-30-th frame. Recognition will only occur during forward playback of the video.
+PAL video (25 FPS) one second interval means that recognition will occur every
+25-th frame. Recognition will only occur during forward playback of the video.
 Rewinded frames won't be recognized.
 
 Recognition results can be logged by SegmentDisplayOCR. By default logging is
